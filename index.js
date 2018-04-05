@@ -10,6 +10,8 @@ const flash = require('connect-flash')//提示模块
 const config = require('config-lite')(__dirname)//检查配置文件模块
 const routes = require('./routes')
 const pkg = require('./package')
+const winston = require('winston')//记录日志需要的模块
+const expressWinston = require('express-winston')//记录日志需要的模块
 
 const app = express()
 
@@ -58,8 +60,41 @@ app.use(function (req, res, next) {//挂载变量信息，此处是user、succes
   next()
 })
 
+//正常请求的日志
+app.use(expressWinston.logger({
+  transports: [
+    new (winston.transports.Console)({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/success.log'
+    })
+  ]
+}))
+
 //路由
 routes(app)
+
+//错误请求日志
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/error.log'
+    })
+  ]
+}))
+
+//错误页面处理：通知错误信息并跳转到主页
+app.use(function (res, req, next) {
+  console.error(err)
+  req.flash('error', err.message)
+  res.redirect('/post')
+})
 
 // 监听端口，启动程序
 app.listen(config.port, function () {
