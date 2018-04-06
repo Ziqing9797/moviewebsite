@@ -95,9 +95,9 @@ module.exports = {
     return Post.update({_id: postId}, {$set: data}).exec()
   },
 
-  // 通过用户 id 和文章 id 删除一篇文章
-  delPostById: function delPostById (postId, author) {
-    return Post.deleteOne({author: author, _id: postId})
+  // 通过用户id 删除一篇文章
+  delPostById: function delPostById (postId) {
+    return Post.deleteOne({_id: postId})
       .exec()
       .then(function (res) {
         // 文章删除后，再删除该文章下的所有留言
