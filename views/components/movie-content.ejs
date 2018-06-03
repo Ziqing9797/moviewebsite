@@ -1,0 +1,29 @@
+<div class="post-content">
+  <div class="ui grid">
+    <div class="four wide column">
+      <a class="avatar avatar-link"
+         href="/admin?author=<%= movie.author._id %>"
+         data-title="<%= movie.author.name %> | <%= ({m: '男', f: '女', x: '保密'})[movie.author.gender] %>"
+         data-content="<%= movie.author.bio %>">
+        <img class="avatar" src="/img/<%= movie.author.avatar %>">
+      </a>
+    </div>
+
+    <div class="eight wide column">
+      <div class="ui segment">
+        <h3><a href="/admin/<%= movie._id %>"><%= movie.title %></a></h3>
+        <img src="/img/<%= movie.image%>"style="width:150px;height: 200px ">
+        <pre><%- movie.bio %></pre>
+        <div>
+          <span class="tag"><%= movie.created_at %></span>
+          <span class="tag right">
+            <% if (user && movie.author._id && user._id.toString() === movie.author._id.toString()) { %>
+              <span><a href="/admin/<%= movie._id %>/edit">编辑</a></span>
+              <span><a href="/admin/<%= movie._id %>/remove">删除</a></span>
+            <% } %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,11 @@
 <div>
   <ul>
     <li><a href="/admin/addmovie">添加电影</a></li>
-    <li>删除电影</li>
   </ul>
 </div>
+
+<% movies.forEach(function (movie) { %>
+  <%- include('components/movie-content', { movie: movie}) %>
+<% }) %>
+
 <%- include('footer') %>

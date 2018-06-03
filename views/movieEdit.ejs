@@ -2,7 +2,7 @@
 
 <div class="ui grid">
   <div class="four wide column">
-    <a class="avatar avatar-link"
+    <a class="avatar"
        href="/admin?author=<%= user._id %>"
        data-title="<%= user.name %> | <%= ({m: '男', f: '女', x: '保密'})[user.gender] %>"
        data-content="<%= user.bio %>">
@@ -11,27 +11,25 @@
   </div>
 
   <div class="eight wide column">
-    <form class="ui form segment" method="post" enctype="multipart/form-data">
+    <form class="ui form segment" method="post" action="/admin/<%= movie._id %>/edit">
       <div class="field required">
         <label>电影名称</label>
-        <input placeholder="电影名称" type="text" name="title">
+        <input type="text" name="title" value="<%= movie.title %>">
       </div>
       <div class="field required">
         <label>评分</label>
-        <input placeholder="评分" type="rating" name="rating">
+        <input type="text" name="rating" value="<%= movie.rating %>">
       </div>
-
       <div class="field required">
-        <label>图片</label>
-        <input type="file" name="image">
+        <label>封面</label>
+        <img src="/img/<%= movie.image%>"style="width:150px;height: 200px ">
+        <input type="file" name="image" value="<%= movie.image %>>
       </div>
       <div class="field required">
         <label>电影简介</label>
-        <textarea name="bio" rows="5"></textarea>
+        <textarea name="bio" rows="15"><%= movie.bio %></textarea>
       </div>
-      <input type="submit" class="ui button fluid" value="添加">
+      <input type="submit" class="ui button" value="修改">
     </form>
   </div>
 </div>
-
-<%- include('footer') %>
