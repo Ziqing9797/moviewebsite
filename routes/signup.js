@@ -24,11 +24,10 @@ router.post('/', checkNotLogin, function (req, res, next) {
   let password = req.fields.password
   const repassword = req.fields.repassword
 
-  //校验参数
-
+  // 校验参数
   try {
-    if (!(name.length >= 1 && name.length <=10)) {
-      throw new  Error('名字请限制在1-10个字符')
+    if (!(name.length >= 1 && name.length <= 10)) {
+      throw new Error('名字请限制在 1-10 个字符')
     }
     if (['m', 'f', 'x'].indexOf(gender) === -1) {
       throw new Error('性别只能是 m、f 或 x')
@@ -45,13 +44,13 @@ router.post('/', checkNotLogin, function (req, res, next) {
     if (password !== repassword) {
       throw new Error('两次输入密码不一致')
     }
-
   } catch (e) {
     // 注册失败，异步删除上传的头像
     fs.unlink(req.files.avatar.path)
     req.flash('error', e.message)
     return res.redirect('/signup')
   }
+
   // 明文密码加密
   password = sha1(password)
 
@@ -89,4 +88,3 @@ router.post('/', checkNotLogin, function (req, res, next) {
 })
 
 module.exports = router
-

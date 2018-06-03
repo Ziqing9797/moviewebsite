@@ -1,14 +1,15 @@
 {
-  "name": "myblog",
+  "name": "movieweb",
   "version": "1.0.0",
-  "description": "my first blog",
+  "description": "my first movieweb@zzq",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha"
   },
   "author": "zzq",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "config-lite": "^2.1.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^2.0.1",
@@ -21,6 +22,7 @@
     "moment": "^2.22.0",
     "mongolass": "^4.1.3",
     "objectid-to-timestamp": "^1.3.0",
+    "request": "^2.87.0",
     "sha1": "^1.1.1",
     "winston": "^2.4.1"
   },
@@ -29,6 +31,9 @@
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.0.5",
+    "supertest": "^3.0.0"
   }
 }
