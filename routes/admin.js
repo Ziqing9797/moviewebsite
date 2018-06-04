@@ -7,7 +7,7 @@ const MovieModel = require('../models/movies')
 const express = require('express')
 const router = express.Router();
 
-const checkLogin = require('../middlewares/check').checkLogin
+const checkLogin = require('../middlewares/admin').checkLogin
 
 // GET /admin
 router.get('/',checkLogin, function (req, res) {
@@ -32,14 +32,17 @@ router.get('/:movieId', function (req, res, next) {
 
   Promise.all([
     MovieModel.getMovieById(movieId), //获取电影详细信息
+
   ])
     .then(function (result) {
       const movie = result[0]
+
       if(!movie) {
         throw new Error('该电影不存在')
       }
       res.render('movie', {
-        movie: movie
+        movie: movie,
+
       })
     })
     .catch(next)

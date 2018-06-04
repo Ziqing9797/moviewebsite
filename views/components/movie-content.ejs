@@ -13,7 +13,9 @@
       <div class="ui segment">
         <h3><a href="/admin/<%= movie._id %>"><%= movie.title %></a></h3>
         <img src="/img/<%= movie.image%>"style="width:150px;height: 200px ">
-        <pre><%- movie.bio %></pre>
+        <div>评分：<%= movie.rating %></div>
+        <div><%- movie.bio %>
+          <div
         <div>
           <span class="tag"><%= movie.created_at %></span>
           <span class="tag right">
