@@ -4,7 +4,7 @@
 const fs = require('fs')
 const path = require('path')
 const MovieModel = require('../models/movies')
-//const MovieCommentModel = require('../models/moviecomments')
+const MovieCommentModel = require('../models/moviecomments')
 const express = require('express')
 const router = express.Router();
 
@@ -33,19 +33,19 @@ router.get('/:movieId', function (req, res, next) {
 
   Promise.all([
     MovieModel.getMovieById(movieId), //获取电影详细信息
-    //MovieCommentModel.getMovieComments(movieId), // 获取该电影所有留言
+    MovieCommentModel.getMovieComments(movieId), // 获取该电影所有留言
 
   ])
     .then(function (result) {
       const movie = result[0]
-      //const moviecomments = result[1]
+      const moviecomments = result[1]
 
       if(!movie) {
         throw new Error('该电影不存在')
       }
       res.render('movie', {
         movie: movie,
-        //moviecomments: moviecomments
+        moviecomments: moviecomments
 
       })
     })

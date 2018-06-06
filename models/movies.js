@@ -4,28 +4,28 @@
 //电影信息
 const marked = require('marked') //导入marked解析markdown文章
 const Movie = require('../lib/mongo').Movie
-//const MovieCommentModel = require('./moviecomments')
+const MovieCommentModel = require('./moviecomments')
 
-// 给 movie 添加留言数 moviecommentsCount
-// Movie.plugin('addMovieCommentsCount', {
-//   afterFind: function (movies) {
-//     return Promise.all(movies.map(function (movie) {
-//       return MovieCommentModel.getMovieCommentsCount(movie._id).then(function (moviecommentsCount) {
-//         movie.moviecommentsCount = moviecommentsCount
-//         return movie
-//       })
-//     }))
-//   },
-//   afterFindOne: function (movie) {
-//     if (movie) {
-//       return MovieCommentModel.getMovieCommentsCount(movie._id).then(function (moviecount) {
-//         movie.moviecommentsCount = moviecount
-//         return movie
-//       })
-//     }
-//     return movie
-//   }
-// })
+//给 movie 添加留言数 moviecommentsCount
+Movie.plugin('addMovieCommentsCount', {
+  afterFind: function (movies) {
+    return Promise.all(movies.map(function (movie) {
+      return MovieCommentModel.getMovieCommentsCount(movie._id).then(function (moviecommentsCount) {
+        movie.moviecommentsCount = moviecommentsCount
+        return movie
+      })
+    }))
+  },
+  afterFindOne: function (movie) {
+    if (movie) {
+      return MovieCommentModel.getMovieCommentsCount(movie._id).then(function (moviecount) {
+        movie.moviecommentsCount = moviecount
+        return movie
+      })
+    }
+    return movie
+  }
+})
 
 // 将 电影信息 的 content 从 markdown 转换成 html
 Movie.plugin('contentToHtml', {
@@ -90,9 +90,14 @@ module.exports = {
   },
 
   // 通过电影 id 删除一部电影
-  delMovieById: function delMovieById (movieId) {
-    return Movie.deleteOne({_id: movieId})
+  delMovieById: function delMovieById (movieId, author) {
+    return Movie.deleteOne({author: author, _id: movieId})
       .exec()
+      .then(function (res) {
+        if (res.result.ok && res.result.n > 0) {
+          return MovieCommentModel.delMovieCommentsByMovieId(movieId)
+        }
+      })
 
   }
 }

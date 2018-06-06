@@ -13,7 +13,8 @@ module.exports = function (app) {
   app.use('/signout', require('./signout')) //登出
   app.use('/posts',   require('./posts'))   //发表
   app.use('/home',    require('./home'))  //主页
-  app.use('/comments',require('./comments'))//评论
+  app.use('/comments', require('./comments'))//博客留言
+  app.use('/moviecomments', require('./moviecomments'))//电影评论
 
   // 404 page
   app.use(function (req, res) {
