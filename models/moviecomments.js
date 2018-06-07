@@ -31,7 +31,7 @@ module.exports = {
   },
 
   // 通过文章 id 删除该文章下所有留言
-  delMovieCommentsByMovieId: function delMovieCommentsByPostId (movieId) {
+  delMovieCommentsById: function delMovieCommentsByPostId (movieId) {
     return MovieComment.deleteMany({movieId: movieId}).exec()
   },
 

@@ -89,13 +89,13 @@ module.exports = {
     return Movie.update({ _id: movieId }, { $set: data }).exec()
   },
 
-  // 通过电影 id 删除一部电影
-  delMovieById: function delMovieById (movieId, author) {
-    return Movie.deleteOne({author: author, _id: movieId})
+  // 通过电影 id 删除一部电影,并删除下面所以的留言
+  delMovieById: function delMovieById (movieId) {
+    return Movie.deleteOne({_id: movieId})
       .exec()
       .then(function (res) {
         if (res.result.ok && res.result.n > 0) {
-          return MovieCommentModel.delMovieCommentsByMovieId(movieId)
+          return MovieCommentModel.delMovieCommentsById(movieId)
         }
       })
 
