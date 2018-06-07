@@ -43,7 +43,7 @@ router.get('/:moviecommentId/remove', checkLogin, function (req, res, next) {
   const moviecommentId = req.params.moviecommentId
   const author = req.session.user._id
 
-  MovieCommentModel.getCommentById(moviecommentId)
+  MovieCommentModel.getMovieCommentById(moviecommentId)
     .then(function (moviecomment) {
       if (!moviecomment) {
         throw new Error('留言不存在')
