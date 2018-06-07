@@ -3,7 +3,27 @@
   <div class="eight wide column">
     <div class="ui segment">
       <div class="ui minimal comments">
-        <h3 class="ui dividing header">评论</h3>
+        <h3 class="ui dividing header">
+          <div>评论</div>
+        </h3>
+        <div>
+          给个评分吧
+          <span id="rating"> <span>
+              <a href="">
+                <img src="/img/star_hollow_hover.png" id="star1" width="16" height="16"/></a>
+              <a href="">
+                <img src="/img/star_hollow_hover.png" id="star2" width="16" height="16"/></a>
+              <a href="">
+                <img src="/img/star_hollow_hover.png" id="star3" width="16" height="16"/></a>
+              <a href="">
+                <img src="/img/star_hollow_hover.png" id="star4" width="16" height="16"/></a>
+              <a href="">
+                <img src="/img/star_hollow_hover.png" id="star5" width="16" height="16"/></a>
+          </span><span id="rateword" class="pl"></span>
+          <input id="n_rating" type="hidden" value=""/>
+          </span>
+        </div>
+
         <% moviecomments.forEach(function (moviecomment) { %>
         <div class="comment">
             <span class="avatar">
